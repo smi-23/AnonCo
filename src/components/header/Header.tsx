@@ -4,24 +4,54 @@ import Toolbar from '@mui/material/Toolbar'
 import HeaderSearch from './HeaderSearch'
 import HeaderTitle from './HeaderTitle'
 import HeaderMenu from './HeaderMenu'
+import HeaderTheme from './HeaderTheme'
+import { useEffect, useState } from 'react'
+import { Box, Stack } from '@mui/material'
 
 export default function Header() {
+  const [showHeader, setShowHeader] = useState(true)
+
+  const handleHeaderByScroll = () => {
+    const curScroll = window.scrollY
+    setShowHeader(curScroll < 5)
+  }
+
+  useEffect(() => {
+    setShowHeader(true)
+    window.addEventListener('scroll', handleHeaderByScroll)
+    return () => window.removeEventListener('scroll', handleHeaderByScroll)
+  }, [])
   return (
     <>
-      <AppBar position="static">
-        <Toolbar sx={{ justifyContent: 'center' }}>
-          {/* 헤더 검색 컴포넌트 */}
-          <HeaderSearch />
-        </Toolbar>
-      </AppBar>
-      <AppBar position="static">
-        <Toolbar>
-          {/* 헤더 타이틀 컴포넌트 */}
-          <HeaderTitle />
-          {/* <Box sx={{ flexGrow: 1 }} /> */}
-          {/* 헤더 메뉴 컴포넌트 */}
-          <HeaderMenu />
-        </Toolbar>
+      <AppBar position="fixed" elevation={3}>
+        <Stack>
+          {showHeader && (
+            <Toolbar sx={{ justifyContent: 'center' }}>
+              {/* 검색 컴포넌트 */}
+              <HeaderSearch />
+            </Toolbar>
+          )}
+          <Toolbar sx={{ justifyContent: 'center' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                maxWidth: 900,
+                width: '100%',
+                gap: 10,
+              }}
+            >
+              {/* 타이틀 컴포넌트 */}
+              <HeaderTitle />
+              {/* <Box sx={{ flexGrow: 1 }} /> */}
+              {/* 메뉴 컴포넌트 */}
+              <HeaderMenu />
+              {/* 테마 아이콘 컴포넌트 */}
+              <HeaderTheme />
+            </Box>
+          </Toolbar>
+        </Stack>
       </AppBar>
     </>
   )
