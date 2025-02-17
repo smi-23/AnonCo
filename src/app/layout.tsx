@@ -1,9 +1,9 @@
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript'
-import Header from '@/components/header/Header'
 import type { Metadata } from 'next'
 import CustomThemeProvider from '@/context/CustomThemeProvider'
 import localFont from 'next/font/local'
+import { Header } from '@/components/header'
 
 export const metadata: Metadata = {
   title: 'AnonCo',

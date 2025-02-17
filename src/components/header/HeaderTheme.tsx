@@ -1,8 +1,9 @@
+'use client'
 import React from 'react'
 import { useColorScheme } from '@mui/material'
 import WbSunnyIcon from '@mui/icons-material/WbSunny'
 import BedtimeRoundedIcon from '@mui/icons-material/BedtimeRounded'
-import TooltipIconButton from '../button/TooltipIconButton'
+import { TooltipIconButton } from '../button'
 
 export default function HeaderTheme() {
   const { mode, setMode } = useColorScheme()
