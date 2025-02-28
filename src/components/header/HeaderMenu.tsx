@@ -6,7 +6,7 @@ export default function HeaderMenu() {
   return (
     <>
       {HEADERS.map((header: Header) => (
-        <Link key={header.id} href={`/post/list?category=${header.url}`} style={{ textDecoration: 'none' }}>
+        <Link key={header.id} href={`/post/lists?category=${header.url}`} style={{ textDecoration: 'none' }}>
           <Typography>{header.title}</Typography>
         </Link>
       ))}
