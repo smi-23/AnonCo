@@ -3,26 +3,14 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Pagination, List, ListItem, ListItemButton, Box, Divider, Typography } from '@mui/material'
 import Link from 'next/link'
+import { Post } from '@/types/Post'
 
-interface Post {
-  id: number
-  nickName: string
-  title: string
-  topic: string
-  updatedAt: Date
-}
-
-export default function TopPosts() {
+export default function TopPostList() {
   const [posts, setPosts] = useState<Post[]>([])
   const [page, setPage] = useState(1) // 현재 페이지 번호 (1부터 시작)
 
-  // 페이지 전환 시 호출되는 함수
-  const handleChangePage = (event: React.ChangeEvent<unknown>, newPage: number) => {
-    setPage(newPage)
-  }
-
   useEffect(() => {
-    axios.get('http://localhost:8080/post/').then((response) => {
+    axios.get('http://localhost:8080/post').then((response) => {
       setPosts(response.data.data)
     })
   }, [])
@@ -30,6 +18,11 @@ export default function TopPosts() {
   // 날짜를 읽기 좋은 형식으로 포맷하는 함수
   const formatDate = (date: Date) => {
     return new Date(date).toLocaleDateString('ko-KR') // 한국 날짜 형식 (예: 2025. 2. 18.)
+  }
+
+  // 페이지 전환 시 호출되는 함수
+  const handleChangePage = (event: React.ChangeEvent<unknown>, newPage: number) => {
+    setPage(newPage)
   }
 
   // 현재 페이지에 맞는 데이터만 슬라이싱

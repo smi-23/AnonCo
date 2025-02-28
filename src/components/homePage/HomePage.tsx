@@ -1,12 +1,13 @@
 'use client'
 import { Container, Grid2 } from '@mui/material'
-import { TopPosts } from '../topPosts'
+import { TopPostList } from '../post'
+
 
 export default function HomePage() {
   return (
     <Container maxWidth={'md'} sx={{ p: 20 }}>
       <Grid2>
-        <TopPosts />
+        <TopPostList />
       </Grid2>
     </Container>
   )
