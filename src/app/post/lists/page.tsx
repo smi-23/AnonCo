@@ -45,9 +45,10 @@ export default function PostListPage() {
   }, [category, page, router])
 
   return (
-    <Container maxWidth={'md'} sx={{ p: 20 }}>
+    // footer 생기기 전까진 패딩으로 유지 이후에 조절
+    <Container maxWidth={'md'} sx={{ p: 20 }}> 
       <PostList paginatedData={paginatedData} onPageChange={handlePage} />
-      <WriteButton />
+      <WriteButton category={category} />
     </Container>
   )
 }
