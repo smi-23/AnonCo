@@ -1,4 +1,5 @@
 'use client'
+import { WriteButton } from '@/components/button'
 import { PostList } from '@/components/post'
 import { Post } from '@/types/Post'
 import { Container } from '@mui/material'
@@ -46,6 +47,7 @@ export default function PostListPage() {
   return (
     <Container maxWidth={'md'} sx={{ p: 20 }}>
       <PostList paginatedData={paginatedData} onPageChange={handlePage} />
+      <WriteButton />
     </Container>
   )
 }
