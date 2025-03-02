@@ -1,6 +1,6 @@
 'use client'
 import { WriteButton } from '@/components/button'
-import { PostList } from '@/components/post'
+import { PostList, PostTitle } from '@/components/post'
 import { Post } from '@/types/Post'
 import { Container } from '@mui/material'
 import axios from 'axios'
@@ -46,7 +46,8 @@ export default function PostListPage() {
 
   return (
     // footer 생기기 전까진 패딩으로 유지 이후에 조절
-    <Container maxWidth={'md'} sx={{ p: 20 }}> 
+    <Container maxWidth={'md'} sx={{ p: 20 }}>
+      <PostTitle category={category}/>
       <PostList paginatedData={paginatedData} onPageChange={handlePage} />
       <WriteButton category={category} />
     </Container>

@@ -1,15 +1,33 @@
 'use client'
-import { Box, Button, Grid2, TextField } from '@mui/material'
+import { PostTitle } from '@/components/post'
+import { Box, Button, Container, Grid2, TextField } from '@mui/material'
 import axios from 'axios'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
+
+interface PostData {
+  nickName: string
+  password: string
+  title: string
+  content: string
+}
+
+const vaildatePostData = (data: PostData): string | null => {
+  if (!data.nickName) {
+    return '닉네임을 입력해주세요.'
+  }
+  if (!data.password) {
+    return '비밀번호를 입력해주세요.'
+  }
+  if (!data.title) {
+    return '제목을 입력해주세요.'
+  }
+  if (!data.content) {
+    return '내용을 입력해주세요.'
+  }
+  return null
+}
 
 export default function WirtePage() {
-  const [nickName, setNickName] = useState('')
-  const [password, setPassword] = useState('')
-  const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
-
   const searchParams = useSearchParams()
 
   const router = useRouter()
@@ -17,16 +35,32 @@ export default function WirtePage() {
   const category = searchParams.get('category') || ''
 
   const handleCancle = () => {
+    alert('글 작성을 취소하시겠습니까?') //  모달로 변경해야 함
     router.push(`/post/lists?category=${category}`)
   }
-  const writePost = async () => {
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    const data: PostData = {
+      nickName: formData.get('nickName') as string,
+      password: formData.get('password') as string,
+      title: formData.get('title') as string,
+      content: formData.get('content') as string,
+    }
+
+    const errorMessage = vaildatePostData(data)
+    if (errorMessage) {
+      alert(errorMessage)
+      return
+    } else {
+      writePost(data)
+    }
+  }
+
+  const writePost = async (data: PostData) => {
     try {
-      const response = await axios.post(`http://localhost:8080/post?categoryTitle=${category}`, {
-        nickName,
-        password,
-        title,
-        content,
-      })
+      const response = await axios.post(`http://localhost:8080/post?categoryTitle=${category}`, data)
       if (response.status === 201) {
         alert('글이 생성되었습니다.')
         router.push(`/post/lists?category=${category}`)
@@ -38,41 +72,31 @@ export default function WirtePage() {
   }
 
   return (
-    <Grid2 container direction={'column'} sx={{ p: 20 }} alignItems={'center'}>
-      <Grid2>
-        <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '25ch' } }} noValidate autoComplete="off">
-          <TextField
-            id="outlined-basic"
-            label="닉네임"
-            variant="outlined"
-            onChange={(e) => setNickName(e.target.value)}
-          />
-          <TextField
-            id="outlined-basic"
-            label="비밀번호"
-            variant="outlined"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Box>
-      </Grid2>
-      <Grid2>
-        <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '52ch' } }} noValidate autoComplete="off">
-          <TextField label="제목" variant="outlined" onChange={(e) => setTitle(e.target.value)} />
-        </Box>
-      </Grid2>
-      <Grid2>
-        <Box component="form" sx={{ '& > :not(style)': { m: 1, width: '52ch' } }} noValidate autoComplete="off">
-          <TextField id="outlined-basic" label="내용" variant="outlined" onChange={(e) => setContent(e.target.value)} />
-        </Box>
-      </Grid2>
-      <Grid2>
-        <Button variant="contained" onClick={handleCancle}>
-          취소
-        </Button>
-        <Button variant="contained" onClick={writePost}>
-          등록
-        </Button>
-      </Grid2>
-    </Grid2>
+    <Container maxWidth={'md'} sx={{ p: 20 }}>
+      <PostTitle category={category} />
+
+      <Box component={'form'} noValidate autoComplete="off" onSubmit={handleSubmit}>
+        <Grid2 container direction={'column'} sx={{}} alignItems={'center'}>
+          <Grid2>
+            <TextField id="outlined-basic" name="nickName" label="닉네임" variant="outlined" />
+            <TextField id="outlined-basic" name="password" label="비밀번호" variant="outlined" />
+          </Grid2>
+          <Grid2>
+            <TextField id="outlined-basic" name="title" label="제목" variant="outlined" />
+          </Grid2>
+          <Grid2>
+            <TextField id="outlined-basic" name="content" label="내용" variant="outlined" />
+          </Grid2>
+          <Grid2>
+            <Button variant="contained" onClick={handleCancle}>
+              취소
+            </Button>
+            <Button variant="contained" type="submit">
+              등록
+            </Button>
+          </Grid2>
+        </Grid2>
+      </Box>
+    </Container>
   )
 }
