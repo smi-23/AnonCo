@@ -3,12 +3,19 @@
 import { Post } from '@/types/Post'
 import customFormatDate from '@/utils/customFormatDate'
 import { Pagination, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { useRouter } from 'next/navigation'
 
 interface PostListProps {
   paginatedData: { postList: Post[]; totalPages: number; totalElements: number; currentPage: number; size: number }
   onPageChange: (newPage: number) => void
 }
 export default function PostList({ paginatedData, onPageChange }: PostListProps) {
+  const router = useRouter()
+
+  const handlePostView = (post: Post) => {
+    router.push(`/post/view?category=${post.category}&no=${post.id}&page=${paginatedData.currentPage}`)
+  }
+
   return (
     <>
       <TableContainer component={Paper}>
@@ -32,6 +39,7 @@ export default function PostList({ paginatedData, onPageChange }: PostListProps)
                     '& td.title': { color: 'red' },
                   },
                 }}
+                onClick={() => handlePostView(post)}
               >
                 <TableCell align="center" className="title">
                   {post.id}
