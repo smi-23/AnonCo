@@ -6,8 +6,8 @@ interface PostTitleProps {
 
 export default function PostTitle({ category }: PostTitleProps) {
   return (
-    <Box sx={{ p: 0 }}>
-      <Typography variant="h3">{category}</Typography>
+    <Box>
+      <Typography variant="h4">{category}</Typography>
       <Divider sx={{ my: 3 }} />
     </Box>
   )

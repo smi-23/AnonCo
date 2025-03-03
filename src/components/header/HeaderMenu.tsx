@@ -7,7 +7,9 @@ export default function HeaderMenu() {
     <>
       {HEADERS.map((header: Header) => (
         <Link key={header.id} href={`/post/lists?category=${header.url}`} style={{ textDecoration: 'none' }}>
-          <Typography>{header.title}</Typography>
+          <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+            {header.title}
+          </Typography>
         </Link>
       ))}
     </>

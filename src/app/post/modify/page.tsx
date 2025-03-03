@@ -36,7 +36,7 @@ export default function PostModifyPage() {
   const postId = parseInt(searchParams.get('no') || '', 10)
   const router = useRouter()
 
-  const [isPasswordRight, setIsPasswordRight] = useState<boolean>(false)
+  const [isPasswordCorrect, setIsPasswordCorrect] = useState<boolean>(false)
 
   const handlePasswordCheck = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -51,7 +51,7 @@ export default function PostModifyPage() {
     axios
       .post(`http://localhost:8080/post/${postId}/check-password`, { password })
       .then(() => {
-        setIsPasswordRight(true)
+        setIsPasswordCorrect(true)
       })
       .catch(() => {
         alert('비밀번호가 일치하지 않습니다.')
@@ -88,7 +88,7 @@ export default function PostModifyPage() {
   return (
     <Container maxWidth="md" sx={{ p: 20 }}>
       <PostTitle category={category} />
-      {!isPasswordRight ? (
+      {!isPasswordCorrect ? (
         <PostPasswordCheck category={category} postId={postId} onSubmit={handlePasswordCheck} />
       ) : (
         <PostModifyForm category={category} handleSubmit={handleModifySubmit} />
