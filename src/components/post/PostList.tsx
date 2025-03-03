@@ -5,6 +5,7 @@ import customFormatDate from '@/utils/customFormatDate'
 import {
   Pagination,
   Paper,
+  Stack,
   styled,
   Table,
   TableBody,
@@ -14,12 +15,14 @@ import {
   TableRow,
 } from '@mui/material'
 import { useRouter } from 'next/navigation'
+import { WriteButton } from '../button'
 
 interface PostListProps {
   paginatedData: { postList: Post[]; totalPages: number; totalElements: number; currentPage: number; size: number }
   onPageChange: (newPage: number) => void
+  category: string
 }
-export default function PostList({ paginatedData, onPageChange }: PostListProps) {
+export default function PostList({ paginatedData, onPageChange, category }: PostListProps) {
   const router = useRouter()
 
   const handlePostView = (post: Post) => {
@@ -35,7 +38,7 @@ export default function PostList({ paginatedData, onPageChange }: PostListProps)
   })
 
   return (
-    <>
+    <Stack spacing={2}>
       <TableContainer component={Paper}>
         <Table aria-label="simple table">
           <TableHead>
@@ -86,14 +89,15 @@ export default function PostList({ paginatedData, onPageChange }: PostListProps)
           </TableBody>
         </Table>
       </TableContainer>
+      <WriteButton category={category} />
       <Pagination
         count={paginatedData.totalPages} // 전체 페이지 수
         page={paginatedData.currentPage} // 현재 페이지
         onChange={(event, newPage) => onPageChange(newPage)} // 페이지 전환 함수
         showFirstButton
         showLastButton
-        sx={{ py: 2, justifyItems: 'flex-end' }}
+        sx={{ justifyItems: 'center' }}
       />
-    </>
+    </Stack>
   )
 }
