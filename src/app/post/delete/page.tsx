@@ -2,8 +2,7 @@
 import { PostPasswordCheck } from '@/components/post'
 import { Container } from '@mui/material'
 import axios from 'axios'
-import { useSearchParams } from 'next/navigation'
-import { useRouter } from 'next/router'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function PostDeletePage() {
   const router = useRouter()

@@ -42,7 +42,7 @@ export default function PostDetail({ post, category }: PostDetailProps) {
       </Paper>
       <Stack direction="row" spacing={2} sx={{ mb: 3 }} justifyContent={'space-between'} alignItems={'center'}>
         <Stack direction={'row'} spacing={2}>
-          <Button variant="contained">전체글</Button>
+          <Button variant="contained" onClick={() => router.push(`/post/lists?category=${category}`)}>전체글</Button>
         </Stack>
         <Stack direction="row" spacing={2}>
           <Button variant="contained" onClick={() => router.push(`/post/modify?category=${category}&no=${post?.id}`)}>

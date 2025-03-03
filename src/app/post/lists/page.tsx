@@ -39,9 +39,11 @@ export default function PostListPage() {
       router.push('/')
       return
     }
-    axios.get(`http://localhost:8080/post/category?categoryTitle=${category}&page=${page}&size=10`).then((response) => {
-      setPaginatedData(response.data.data)
-    })
+    axios
+      .get(`http://localhost:8080/post/category?categoryTitle=${category}&page=${page}&size=10&sort=desc`)
+      .then((response) => {
+        setPaginatedData(response.data.data)
+      })
   }, [category, page, router])
 
   return (
