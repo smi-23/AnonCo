@@ -25,7 +25,7 @@ export default function PostViewPage() {
   return (
     <Container maxWidth="md" sx={{ p: 20 }}>
       <PostTitle category={category} />
-      <PostDetail post={post} />
+      <PostDetail post={post} category = {category}/>
     </Container>
   )
 }

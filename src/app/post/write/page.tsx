@@ -1,6 +1,6 @@
 'use client'
-import { PostTitle } from '@/components/post'
-import { Box, Button, Container, Grid2, TextField } from '@mui/material'
+import { PostCreateForm, PostTitle } from '@/components/post'
+import { Container } from '@mui/material'
 import axios from 'axios'
 import { useRouter, useSearchParams } from 'next/navigation'
 
@@ -27,19 +27,14 @@ const vaildatePostData = (data: PostData): string | null => {
   return null
 }
 
-export default function WirtePage() {
+export default function PostWirtePage() {
   const searchParams = useSearchParams()
 
   const router = useRouter()
 
   const category = searchParams.get('category') || ''
 
-  const handleCancle = () => {
-    alert('글 작성을 취소하시겠습니까?') //  모달로 변경해야 함
-    router.push(`/post/lists?category=${category}`)
-  }
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleCreateSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     const data: PostData = {
@@ -74,29 +69,7 @@ export default function WirtePage() {
   return (
     <Container maxWidth={'md'} sx={{ p: 20 }}>
       <PostTitle category={category} />
-
-      <Box component={'form'} noValidate autoComplete="off" onSubmit={handleSubmit}>
-        <Grid2 container direction={'column'} sx={{}} alignItems={'center'}>
-          <Grid2>
-            <TextField id="outlined-basic" name="nickName" label="닉네임" variant="outlined" />
-            <TextField id="outlined-basic" name="password" label="비밀번호" variant="outlined" />
-          </Grid2>
-          <Grid2>
-            <TextField id="outlined-basic" name="title" label="제목" variant="outlined" />
-          </Grid2>
-          <Grid2>
-            <TextField id="outlined-basic" name="content" label="내용" variant="outlined" />
-          </Grid2>
-          <Grid2>
-            <Button variant="contained" onClick={handleCancle}>
-              취소
-            </Button>
-            <Button variant="contained" type="submit">
-              등록
-            </Button>
-          </Grid2>
-        </Grid2>
-      </Box>
+      <PostCreateForm category={category} handleSubmit={handleCreateSubmit} />
     </Container>
   )
 }
