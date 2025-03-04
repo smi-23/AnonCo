@@ -1,6 +1,5 @@
 'use client'
 
-import { Post } from '@/types/Post'
 import customFormatDate from '@/utils/customFormatDate'
 import {
   Pagination,
@@ -16,6 +15,7 @@ import {
 } from '@mui/material'
 import { useRouter } from 'next/navigation'
 import { WriteButton } from '../button'
+import { Post } from '@/types'
 
 interface PostListProps {
   paginatedData: { postList: Post[]; totalPages: number; totalElements: number; currentPage: number; size: number }

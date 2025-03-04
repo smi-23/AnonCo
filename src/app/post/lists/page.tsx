@@ -1,18 +1,12 @@
 'use client'
+
+import { FetchPostPage } from '@/app/service/post'
 import { PostList, PostTitle } from '@/components/post'
-import { Post } from '@/types/Post'
+import { PaginationRes } from '@/types'
 import { Container } from '@mui/material'
-import axios from 'axios'
+
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-
-interface PaginationRes {
-  postList: Post[]
-  totalPages: number
-  totalElements: number
-  currentPage: number
-  size: number
-}
 
 export default function PostListPage() {
   const [paginatedData, setPaginatedData] = useState<PaginationRes>({
@@ -22,9 +16,9 @@ export default function PostListPage() {
     currentPage: 1,
     size: 10,
   })
-  const searchParams = useSearchParams()
-  const router = useRouter()
 
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const category = searchParams.get('category') || ''
   const page = parseInt(searchParams.get('page') || '1', 10)
 
@@ -33,16 +27,17 @@ export default function PostListPage() {
   }
 
   useEffect(() => {
-    if (!category) {
-      alert('해당 카테고리는 존재하지 않습니다.') // 카테고리 빈 값일 때 오류 메시지 설정
-      router.push('/')
-      return
+    const fetchData = async () => {
+      try {
+        const postPageRes = await FetchPostPage({ category, page })
+        setPaginatedData(postPageRes.data.data)
+      } catch (error) {
+        console.error('fetchPostList error: ', error)
+        router.push('/')
+      }
     }
-    axios
-      .get(`http://localhost:8080/post/category?categoryTitle=${category}&page=${page}&size=10&sort=desc`)
-      .then((response) => {
-        setPaginatedData(response.data.data)
-      })
+
+    fetchData()
   }, [category, page, router])
 
   return (
