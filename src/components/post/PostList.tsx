@@ -67,7 +67,6 @@ export default function PostList({ paginatedData, onPageChange, category }: Post
             {paginatedData.postList.map((post) => (
               <TableRow
                 hover
-                tabIndex={-10}
                 key={post.id}
                 sx={{
                   cursor: 'pointer',

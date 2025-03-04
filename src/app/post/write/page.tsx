@@ -55,7 +55,7 @@ export default function PostWirtePage() {
 
   const writePost = async (data: PostData) => {
     try {
-      const response = await axios.post(`http://localhost:8080/post?categoryTitle=${category}`, data)
+      const response = await axios.post(`http://localhost:8080/post?categoryUrl=${category}`, data)
       if (response.status === 201) {
         alert('글이 생성되었습니다.')
         router.push(`/post/lists?category=${category}`)
