@@ -42,7 +42,7 @@ export default function PostDetail({ post, category }: PostDetailProps) {
         </Stack>
         <Stack direction="row" spacing={2} divider={<Divider orientation="vertical" flexItem />}>
           <Typography>조회</Typography>
-          <Typography>댓글</Typography>
+          <Typography>댓글({post?.commentCount})</Typography>
         </Stack>
       </Stack>
       <Divider sx={{ mb: 3 }} />

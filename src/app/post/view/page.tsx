@@ -6,9 +6,11 @@ import { PostDetail, PostList, PostTitle } from '@/components/post'
 import { PaginationRes, Post } from '@/types'
 import { Container } from '@mui/material'
 import { FetchPost, FetchPostPage } from '@/app/service/post'
+import { CommentList } from '@/components/comment'
 
 export default function PostViewPage() {
   const [paginatedData, setPaginatedData] = useState<PaginationRes>({
+    categoryTitle: '',
     postList: [],
     totalPages: 0,
     totalElements: 0,
@@ -45,8 +47,9 @@ export default function PostViewPage() {
 
   return (
     <Container maxWidth="md" sx={{ p: 20 }}>
-      <PostTitle category={category} />
+      <PostTitle category={post?.categoryTitle} />
       <PostDetail post={post} category={category} />
+      <CommentList commentCount={post?.commentCount} />
       <PostList paginatedData={paginatedData} onPageChange={handlePage} category={category} />
     </Container>
   )

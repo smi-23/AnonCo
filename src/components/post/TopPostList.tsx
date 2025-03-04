@@ -53,7 +53,7 @@ export default function TopPostList() {
                 >
                   {/* 왼쪽: 토픽, 타이틀 */}
                   <Box gap={4} sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <Typography variant="body1">{post.topic}</Typography>
+                    <Typography variant="body1">{post.categoryTitle}</Typography>
                     <Typography variant="h6">{post.title}</Typography>
                   </Box>
 

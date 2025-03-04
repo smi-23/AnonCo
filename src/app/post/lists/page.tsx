@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react'
 
 export default function PostListPage() {
   const [paginatedData, setPaginatedData] = useState<PaginationRes>({
+    categoryTitle: '',
     postList: [],
     totalPages: 0,
     totalElements: 0,
@@ -43,7 +44,7 @@ export default function PostListPage() {
   return (
     // footer 생기기 전까진 패딩으로 유지 이후에 조절
     <Container maxWidth={'md'} sx={{ p: 20 }}>
-      <PostTitle category={category} />
+      <PostTitle category={paginatedData.categoryTitle} />
       <PostList paginatedData={paginatedData} onPageChange={handlePage} category={category} />
     </Container>
   )

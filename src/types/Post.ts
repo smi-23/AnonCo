@@ -4,6 +4,7 @@ export interface Post {
   nickName: string
   title: string
   content: string
-  category: string
+  categoryTitle: string
+  commentCount: number
   updatedAt: Date
 }

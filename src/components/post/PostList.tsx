@@ -26,7 +26,7 @@ export default function PostList({ paginatedData, onPageChange, category }: Post
   const router = useRouter()
 
   const handlePostView = (post: Post) => {
-    router.push(`/post/view?category=${post.category}&no=${post.id}&page=${paginatedData.currentPage}`)
+    router.push(`/post/view?category=${category}&no=${post.id}&page=${paginatedData.currentPage}`)
   }
 
   const CustomTableCell = styled(TableCell)({
